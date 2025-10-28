@@ -1,53 +1,53 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useEffect, useRef, useState } from "react"
-import { X } from "lucide-react"
+import { useEffect, useRef, useState } from "react";
+import { X } from "lucide-react";
 
 interface SearchModalProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
-  const inputRef = useRef<HTMLInputElement>(null)
-  const modalRef = useRef<HTMLDivElement>(null)
-  const [searchValue, setSearchValue] = useState("")
+  const inputRef = useRef<HTMLInputElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     if (isOpen) {
-      inputRef.current?.focus()
-      document.body.style.overflow = "hidden"
+      inputRef.current?.focus();
+      document.body.style.overflow = "hidden";
     }
 
     const handleOutsideClick = (e: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-        onClose()
+        onClose();
       }
-    }
+    };
 
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose()
-    }
+      if (e.key === "Escape") onClose();
+    };
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleOutsideClick)
-      document.addEventListener("keydown", handleEscape)
+      document.addEventListener("mousedown", handleOutsideClick);
+      document.addEventListener("keydown", handleEscape);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick)
-      document.removeEventListener("keydown", handleEscape)
-      document.body.style.overflow = "unset"
-    }
-  }, [isOpen, onClose])
+      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen, onClose]);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Search for:", searchValue)
+    e.preventDefault();
+    console.log("Search for:", searchValue);
     // Handle search logic here
-  }
+  };
 
   return (
     <>
@@ -121,5 +121,5 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         </div>
       </div>
     </>
-  )
+  );
 }
